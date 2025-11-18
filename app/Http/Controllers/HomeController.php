@@ -10,6 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $totalEbooks = Ebook::where('actif', true)->count();
         $categories = Category::withCount('ebooks')->get();
         $bestsellers = Ebook::where('actif', true)
             ->where('bestseller', true)
@@ -22,6 +23,6 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        return view('home', compact('categories', 'bestsellers', 'nouveautes'));
+        return view('home', compact('totalEbooks', 'categories', 'bestsellers', 'nouveautes'));
     }
 }
